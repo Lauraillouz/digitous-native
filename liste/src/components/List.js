@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // React Native
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 
 const List = () => {
   const [countries, setCountries] = useState([]);
@@ -13,12 +13,15 @@ const List = () => {
         setCountries(res);
       });
   };
-  getCountries();
-  console.log(countries);
+
+  useEffect(() => {
+    getCountries();
+  }, []);
 
   const renderCountry = ({ item }) => {
     return (
       <View style={styles.list}>
+        <Image style={styles.flag} source={{ uri: item.flag }}></Image>
         <Text>Country: {item.name}</Text>
         <Text>Capital: {item.capital}</Text>
       </View>
@@ -29,7 +32,7 @@ const List = () => {
     <FlatList
       data={countries}
       renderItem={renderCountry}
-      keyExtractor={(item, index) => index}
+      keyExtractor={(item, index) => index.toString()}
     />
   );
 };
@@ -37,6 +40,10 @@ const List = () => {
 const styles = StyleSheet.create({
   list: {
     margin: 20,
+  },
+  flag: {
+    height: 100,
+    width: 200,
   },
 });
 
