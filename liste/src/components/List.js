@@ -11,7 +11,7 @@ import {
 
 const List = () => {
   const [countries, setCountries] = useState([]);
-  const [click, setClick] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const [selected, setSelected] = useState("");
 
   const getCountries = () => {
@@ -26,22 +26,41 @@ const List = () => {
     getCountries();
   }, []);
 
-  const handlePress = (item) => {
-    selected === item.numericCode || selected === ""
-      ? setClick((prevState) => !prevState)
-      : null;
-    setSelected(item.numericCode);
-    console.log(click, selected);
+  const clearState = () => {
+    setSelected("");
+    setIsClicked(false);
+  };
+  const updateState = (item) => {
+    setSelected(item.name);
+    setIsClicked(true);
   };
 
+  const handlePress = (item) => {
+    if (selected.toString() !== item.name.toString()) {
+      updateState(item);
+    } else {
+      clearState();
+    }
+    /* if (selected !== item.numericCode) {
+      setClick(true);
+    } else if (selected === item.numericCode && click === true) {
+      setClick(false);
+    } else if (selected === item.numericCode && click === false) {
+      setClick(true);
+    } */
+  };
+  console.log(isClicked, selected);
+
   const renderCountry = ({ item }) => {
+    /* console.log(item.numericCode);
+    console.log("selected:", selected); */
     return (
       <View style={styles.list}>
         <Text>{item.name}</Text>
         <TouchableOpacity onPress={() => handlePress(item)}>
           <Image style={styles.flag} source={{ uri: item.flag }}></Image>
         </TouchableOpacity>
-        {click && item.numericCode === selected ? (
+        {isClicked && item.name.toString() === selected.toString() ? (
           <Text>Capital: {item.capital}</Text>
         ) : null}
       </View>
