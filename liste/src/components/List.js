@@ -9,10 +9,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+const API_KEY = "671d055643a6eb59b7142a143bfc725d";
+
 const List = () => {
   const [countries, setCountries] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [selected, setSelected] = useState("");
+  const [weather, setWeather] = useState([]);
 
   const getCountries = () => {
     fetch("http://restcountries.eu/rest/v2/all")
@@ -22,32 +25,40 @@ const List = () => {
       });
   };
 
+  const getWeather = (capital) => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setWeather([res.main.temp, res.weather[0].main]);
+      });
+  };
+
   useEffect(() => {
     getCountries();
   }, []);
+
+  useEffect(() => {
+    getWeather(selected);
+    console.log(weather);
+  }, [selected]);
 
   const clearState = () => {
     setSelected("");
     setIsClicked(false);
   };
   const updateState = (item) => {
-    setSelected(item.name);
+    setSelected(item.capital);
     setIsClicked(true);
   };
 
   const handlePress = (item) => {
-    if (selected.toString() !== item.name.toString()) {
+    if (selected.toString() !== item.capital.toString()) {
       updateState(item);
     } else {
       clearState();
     }
-    /* if (selected !== item.numericCode) {
-      setClick(true);
-    } else if (selected === item.numericCode && click === true) {
-      setClick(false);
-    } else if (selected === item.numericCode && click === false) {
-      setClick(true);
-    } */
   };
   console.log(isClicked, selected);
 
@@ -60,7 +71,7 @@ const List = () => {
         <TouchableOpacity onPress={() => handlePress(item)}>
           <Image style={styles.flag} source={{ uri: item.flag }}></Image>
         </TouchableOpacity>
-        {isClicked && item.name.toString() === selected.toString() ? (
+        {isClicked && item.capital.toString() === selected.toString() ? (
           <Text>Capital: {item.capital}</Text>
         ) : null}
       </View>
