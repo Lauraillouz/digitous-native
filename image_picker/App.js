@@ -1,10 +1,16 @@
 import React from "react";
+// React Native
 import { StyleSheet, Text, View } from "react-native";
+// Components
+import ProfilePic from "./components/ProfilePic";
+// Image Picker
+import * as ImagePicker from "expo-image-picker";
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <Text>Hello World</Text>
+      <Text>Your profile pic</Text>
+      <ProfilePic />
     </View>
   );
 };
