@@ -21,11 +21,11 @@ const Form = () => {
     if (emailReg.test(val)) {
       setEmailIsValid(true);
       setInputColorEmail("white");
-    } else if (!emailReg.test(val) && val !== undefined) {
+    } else if (!emailReg.test(val) && val.length > 0) {
       setInputColorEmail("lightpink");
       setEmailIsValid(false);
       return;
-    } else if (val === undefined || val === null || val === "") {
+    } else if (val.length === 0) {
       setInputColorPassword("black");
       setEmailIsValid(false);
     }
@@ -57,6 +57,7 @@ const Form = () => {
     }
     console.log("you clicked");
   };
+  console.log("email:", inputColorEmail, "password:", inputColorPassword);
 
   return (
     <View style={styles.formContainer}>
@@ -68,14 +69,12 @@ const Form = () => {
       />
       <Text style={styles.label}>Enter your password</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: inputColorPassword }]}
         onChangeText={passwordValidation}
         secureTextEntry={true}
       />
       <TouchableOpacity style={styles.btn} onPress={handlePress}>
-        <Text style={(styles.text, { borderColor: inputColorPassword })}>
-          Send
-        </Text>
+        <Text style={styles.text}>Send</Text>
       </TouchableOpacity>
     </View>
   );
