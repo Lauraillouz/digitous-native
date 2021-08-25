@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,14 +7,17 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { useHistory } from "react-router-native";
 
 const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-const Form = () => {
+const Login = () => {
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [inputColorEmail, setInputColorEmail] = useState("black");
   const [inputColorPassword, setInputColorPassword] = useState("black");
+
+  const history = useHistory();
 
   const emailValidation = (val) => {
     console.log(val);
@@ -45,7 +48,7 @@ const Form = () => {
 
   const handlePress = () => {
     if (emailIsValid && passwordIsValid) {
-      Alert.alert("Thank you for logging in!");
+      history.push("/");
     } else if (!passwordIsValid && !emailIsValid) {
       Alert.alert(
         "Please enter a valid email and a password that contains at least 6 characters"
@@ -55,9 +58,7 @@ const Form = () => {
     } else if (!passwordIsValid && emailIsValid) {
       Alert.alert("Your password needs to contain at least 6 characters.");
     }
-    console.log("you clicked");
   };
-  console.log("email:", inputColorEmail, "password:", inputColorPassword);
 
   return (
     <View style={styles.formContainer}>
@@ -73,6 +74,7 @@ const Form = () => {
         onChangeText={passwordValidation}
         secureTextEntry={true}
       />
+
       <TouchableOpacity style={styles.btn} onPress={handlePress}>
         <Text style={styles.text}>Send</Text>
       </TouchableOpacity>
@@ -115,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Form;
+export default Login;

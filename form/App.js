@@ -1,12 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { NativeRouter, Route } from "react-router-native";
 // Components
-import Form from "./src/components/Form";
+import Login from "./src/views/Login";
+import Home from "./src/views/Home";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Form />
+      <NativeRouter>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
+      </NativeRouter>
     </View>
   );
 }
