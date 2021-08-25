@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 // React Native
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 // Image Picker
 import * as ImagePicker from "expo-image-picker";
 
@@ -12,7 +19,7 @@ const ProfilePic = () => {
       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
+      Alert.alert("Permission to access camera roll is required!");
       return;
     }
 
