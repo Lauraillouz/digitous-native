@@ -2,10 +2,10 @@ import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Link } from "react-router-native";
 // Context
-import { UserContext } from "../../App";
+import { LoginContext } from "../../App";
 
 const Home = () => {
-  const logState = useContext(UserContext);
+  const logState = useContext(LoginContext);
 
   const handlePress = () => {
     logState.setAuth();

@@ -7,10 +7,12 @@ import Home from "./src/views/Home";
 ``;
 
 // Context
+export const LoginContext = createContext();
 export const UserContext = createContext();
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   const setAuth = () => {
     setIsLoggedIn((prev) => !prev);
@@ -19,11 +21,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <NativeRouter>
-        <UserContext.Provider
-          value={{ isLoggedIn: isLoggedIn, setAuth: setAuth }}
-        >
-          <Route exact path="/" component={Login} />
-          <Route exact path="/home" component={Home} />
+        <UserContext.Provider value={{ userEmail, setUserEmail }}>
+          <LoginContext.Provider value={{ isLoggedIn, setAuth }}>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/home" component={Home} />
+          </LoginContext.Provider>
         </UserContext.Provider>
       </NativeRouter>
     </View>

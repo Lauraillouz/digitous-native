@@ -10,6 +10,7 @@ import {
 import { useHistory } from "react-router-native";
 // Context
 import { UserContext } from "../../App";
+import { LoginContext } from "../../App";
 
 const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
@@ -18,12 +19,13 @@ const Login = () => {
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [inputColorEmail, setInputColorEmail] = useState("black");
   const [inputColorPassword, setInputColorPassword] = useState("black");
-  const logState = useContext(UserContext);
+
+  const logState = useContext(LoginContext);
+  const userEmailState = useContext(UserContext);
 
   const history = useHistory();
 
   const emailValidation = (val) => {
-    console.log(val);
     if (emailReg.test(val)) {
       setEmailIsValid(true);
       setInputColorEmail("white");
@@ -35,6 +37,7 @@ const Login = () => {
       setInputColorPassword("black");
       setEmailIsValid(false);
     }
+    userEmailState.setUserEmail(val);
   };
 
   const passwordValidation = (val) => {
@@ -64,6 +67,7 @@ const Login = () => {
     }
   };
   console.log("isLoggedIn in Login:", logState.isLoggedIn);
+  console.log("email:", userEmailState.userEmail);
 
   return (
     <View style={styles.formContainer}>
@@ -72,6 +76,7 @@ const Login = () => {
       <TextInput
         style={[styles.input, { borderColor: inputColorEmail }]}
         onChangeText={emailValidation}
+        /* value={userEmailState.userEmail ? } */
       />
       <Text style={styles.label}>Enter your password</Text>
       <TextInput
