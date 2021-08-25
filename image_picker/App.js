@@ -3,8 +3,6 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 // Components
 import ProfilePic from "./components/ProfilePic";
-// Image Picker
-import * as ImagePicker from "expo-image-picker";
 
 const App = () => {
   return (
