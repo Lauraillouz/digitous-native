@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Link } from "react-router-native";
+// Context
+import { UserContext } from "../../App";
 
 const Home = () => {
+  const logState = useContext(UserContext);
+
+  const handlePress = () => {
+    logState.setAuth();
+  };
+  console.log("isLoggedIn in Home", logState.isLoggedIn);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home</Text>
-      <Link to="/login" style={styles.btnLogin}>
-        <Text>Login</Text>
+      <Link to="/" style={styles.btnLogout} onPress={handlePress}>
+        <Text>Logout</Text>
       </Link>
     </View>
   );
@@ -24,7 +33,7 @@ const styles = StyleSheet.create({
     margin: 32,
     color: "lightpink",
   },
-  btnLogin: {
+  btnLogout: {
     padding: 16,
     backgroundColor: "lightgrey",
     borderRadius: 15,

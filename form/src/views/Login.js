@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,8 @@ import {
   Alert,
 } from "react-native";
 import { useHistory } from "react-router-native";
+// Context
+import { UserContext } from "../../App";
 
 const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
@@ -16,6 +18,7 @@ const Login = () => {
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [inputColorEmail, setInputColorEmail] = useState("black");
   const [inputColorPassword, setInputColorPassword] = useState("black");
+  const logState = useContext(UserContext);
 
   const history = useHistory();
 
@@ -48,7 +51,8 @@ const Login = () => {
 
   const handlePress = () => {
     if (emailIsValid && passwordIsValid) {
-      history.push("/");
+      history.push("/home");
+      logState.setAuth();
     } else if (!passwordIsValid && !emailIsValid) {
       Alert.alert(
         "Please enter a valid email and a password that contains at least 6 characters"
@@ -59,6 +63,7 @@ const Login = () => {
       Alert.alert("Your password needs to contain at least 6 characters.");
     }
   };
+  console.log("isLoggedIn in Login:", logState.isLoggedIn);
 
   return (
     <View style={styles.formContainer}>
@@ -75,8 +80,8 @@ const Login = () => {
         secureTextEntry={true}
       />
 
-      <TouchableOpacity style={styles.btn} onPress={handlePress}>
-        <Text style={styles.text}>Send</Text>
+      <TouchableOpacity style={styles.btnLogin} onPress={handlePress}>
+        <Text style={styles.text}>Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
     color: "lightgrey",
     marginTop: 32,
   },
-  btn: {
+  btnLogin: {
     backgroundColor: "lightgrey",
     padding: 12,
     borderRadius: 15,
