@@ -17,6 +17,14 @@ const List = () => {
   const [selected, setSelected] = useState("");
   const [weather, setWeather] = useState([]);
 
+  useEffect(() => {
+    getCountries();
+  }, []);
+
+  useEffect(() => {
+    getWeather(selected);
+  }, [selected]);
+
   const getCountries = () => {
     fetch("http://restcountries.eu/rest/v2/all")
       .then((res) => res.json())
@@ -26,23 +34,16 @@ const List = () => {
   };
 
   const getWeather = (capital) => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setWeather([res.main.temp, res.weather[0].main]);
-      });
+    if (selected) {
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${API_KEY}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setWeather([res.weather[0].main, res.main.temp]);
+        });
+    }
   };
-
-  useEffect(() => {
-    getCountries();
-  }, []);
-
-  useEffect(() => {
-    getWeather(selected);
-    console.log(weather);
-  }, [selected]);
 
   const clearState = () => {
     setSelected("");
@@ -72,7 +73,11 @@ const List = () => {
           <Image style={styles.flag} source={{ uri: item.flag }}></Image>
         </TouchableOpacity>
         {isClicked && item.capital.toString() === selected.toString() ? (
-          <Text>Capital: {item.capital}</Text>
+          <View>
+            <Text>Capital: {item.capital}</Text>
+            <Text>Weather: {weather[0]}</Text>
+            <Text>Temperature: {(weather[1] - 273, 15)}°C</Text>
+          </View>
         ) : null}
       </View>
     );
