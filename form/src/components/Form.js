@@ -8,33 +8,36 @@ import {
   Alert,
 } from "react-native";
 
+const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
 const Form = () => {
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
-  const [inputColor, setInputColor] = useState("black");
+  const [inputColorEmail, setInputColorEmail] = useState("black");
+  const [inputColorPassword, setInputColorPassword] = useState("black");
 
   const emailValidation = (val) => {
-    if (val === /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) {
+    console.log(val);
+    if (emailReg.test(val)) {
       setEmailIsValid(true);
-      setInputColor("white");
-    } else if (
-      val !== /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ &&
-      val !== undefined
-    ) {
-      setInputColor("lightpink");
+      setInputColorEmail("white");
+    } else if (emailReg.test(!val) && val !== undefined) {
+      setInputColorEmail("lightpink");
       setEmailIsValid(false);
       return;
-    } else {
-      setInputColor("black");
+    } else if (val === undefined) {
+      setInputColorEmail("black");
       setEmailIsValid(false);
     }
   };
 
   const passwordValidation = (val) => {
-    if (val.length > 6) {
+    if (val.length >= 6) {
       setPasswordIsValid(true);
+      setInputColorPassword("white");
     } else {
       setPasswordIsValid(false);
+      setInputColorPassword("lightpink");
     }
   };
 
@@ -58,17 +61,19 @@ const Form = () => {
       <Text style={styles.formTitle}>Form</Text>
       <Text style={styles.label}>Enter your email</Text>
       <TextInput
-        style={[styles.input, { borderColor: inputColor }]}
-        onChange={emailValidation}
+        style={[styles.input, { borderColor: inputColorEmail }]}
+        onChangeText={emailValidation}
       />
       <Text style={styles.label}>Enter your password</Text>
       <TextInput
         style={styles.input}
-        onChange={passwordValidation}
+        onChangeText={passwordValidation}
         secureTextEntry={true}
       />
       <TouchableOpacity style={styles.btn} onPress={handlePress}>
-        <Text style={styles.text}>Send</Text>
+        <Text style={(styles.text, { borderColor: inputColorPassword })}>
+          Send
+        </Text>
       </TouchableOpacity>
     </View>
   );
