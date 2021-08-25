@@ -21,12 +21,12 @@ const Form = () => {
     if (emailReg.test(val)) {
       setEmailIsValid(true);
       setInputColorEmail("white");
-    } else if (emailReg.test(!val) && val !== undefined) {
+    } else if (!emailReg.test(val) && val !== undefined) {
       setInputColorEmail("lightpink");
       setEmailIsValid(false);
       return;
-    } else if (val === undefined) {
-      setInputColorEmail("black");
+    } else if (val === undefined || val === null || val === "") {
+      setInputColorPassword("black");
       setEmailIsValid(false);
     }
   };
@@ -35,9 +35,11 @@ const Form = () => {
     if (val.length >= 6) {
       setPasswordIsValid(true);
       setInputColorPassword("white");
-    } else {
-      setPasswordIsValid(false);
+    } else if (val.length > 0 && val.length <= 5) {
       setInputColorPassword("lightpink");
+      setPasswordIsValid(false);
+    } else {
+      setInputColorPassword("black");
     }
   };
 
