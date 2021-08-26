@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 // Component
 import AddPost from "../views/AddPost";
 import Profile from "../views/Profile";
@@ -22,15 +22,5 @@ const Home = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    marginTop: 40,
-    textAlign: "center",
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
-  },
-});
 
 export default Home;

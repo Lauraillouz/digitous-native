@@ -40,7 +40,7 @@ const Posts = () => {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.post}>{item.body}</Text>
+          <Text>{item.body}</Text>
           <TouchableOpacity
             onPress={() => handlePress(item.id)}
             style={styles.btnComments}
@@ -60,6 +60,7 @@ const Posts = () => {
     />
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
