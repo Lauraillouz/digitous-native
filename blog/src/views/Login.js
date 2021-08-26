@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -8,8 +8,12 @@ import {
   Alert,
 } from "react-native";
 import { useHistory } from "react-router-native";
+// Context
+import { LoginContext } from "../../App";
 
 const Login = () => {
+  const logState = useContext(LoginContext);
+
   const [isIDValid, setIsIDValid] = useState(false);
 
   const history = useHistory();
@@ -25,6 +29,7 @@ const Login = () => {
   const handlePress = () => {
     if (isIDValid) {
       history.push("/home");
+      logState.setIsLoggedIn(true);
     } else {
       Alert.alert(
         "Your ID needs to contain between between 1 and 10 characters"
