@@ -10,6 +10,7 @@ export const PostIdContext = createContext();
 const Timeline = () => {
   const [showComments, setShowComments] = useState(false);
   const [postId, setPostId] = useState("");
+  const [numberOfComments, setNumberOfComments] = useState(0);
 
   const handlePress = () => {
     setShowComments(false);
@@ -17,14 +18,23 @@ const Timeline = () => {
 
   return (
     <PostIdContext.Provider value={{ postId, setPostId }}>
-      <CommentsContext.Provider value={{ showComments, setShowComments }}>
+      <CommentsContext.Provider
+        value={{
+          showComments,
+          setShowComments,
+          numberOfComments,
+          setNumberOfComments,
+        }}
+      >
         {showComments ? (
           <View style={styles.container}>
             <Text style={styles.headline}>Comments</Text>
             <TouchableOpacity style={styles.btnReturn} onPress={handlePress}>
               <Text style={styles.btnText}>Back to Posts</Text>
             </TouchableOpacity>
-            <Comments />
+            <View style={styles.commentsContainer}>
+              <Comments />
+            </View>
           </View>
         ) : (
           <View>
@@ -68,6 +78,9 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "#1D1D1D",
+  },
+  commentsContainer: {
+    marginTop: 64,
   },
 });
 

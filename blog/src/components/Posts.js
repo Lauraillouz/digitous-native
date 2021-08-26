@@ -13,7 +13,8 @@ import { CommentsContext, PostIdContext } from "../views/Timeline";
 const Posts = () => {
   const { posts, setPosts } = useContext(PostContext);
   const { ID } = useContext(UserContext);
-  const { setShowComments } = useContext(CommentsContext);
+  const { comments, setShowComments, numberOfComments } =
+    useContext(CommentsContext);
   const { setPostId } = useContext(PostIdContext);
 
   const getPosts = () => {
@@ -32,6 +33,7 @@ const Posts = () => {
     setShowComments(true);
     setPostId(itemId);
   };
+  console.log(comments);
 
   const renderPosts = ({ item }) => {
     if (item.userId === parseInt(ID)) {
@@ -43,7 +45,7 @@ const Posts = () => {
             onPress={() => handlePress(item.id)}
             style={styles.btnComments}
           >
-            <Text style={styles.text}>Comments</Text>
+            <Text style={styles.text}>Comments ({numberOfComments})</Text>
           </TouchableOpacity>
         </View>
       );
