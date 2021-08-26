@@ -21,7 +21,9 @@ const Login = () => {
   const history = useHistory();
 
   const checkID = (val) => {
-    if (val.length < 10 && val.length > 1) {
+    let value = parseInt(val);
+    console.log(typeof value);
+    if (value >= 1 && value <= 10) {
       setIsIDValid(true);
     } else {
       setIsIDValid(false);
@@ -29,13 +31,11 @@ const Login = () => {
   };
 
   const handlePress = () => {
-    if (isIDValid && navState.nav === "home") {
+    if (isIDValid) {
       history.push("/home");
       logState.setIsLoggedIn(true);
     } else {
-      Alert.alert(
-        "Your ID needs to contain between between 1 and 10 characters"
-      );
+      Alert.alert("Your ID needs to be a number between 1 and 10");
     }
   };
 
