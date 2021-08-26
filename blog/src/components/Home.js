@@ -4,13 +4,11 @@ import { StyleSheet, View, Text } from "react-native";
 import AddPost from "../views/AddPost";
 import Profile from "../views/Profile";
 import Timeline from "../views/Timeline";
-import Navbar from "./Navbar";
 // Contexts
-import { NavContext, LoginContext } from "../../App";
+import { NavContext } from "../../App";
 
 const Home = () => {
   const { nav } = useContext(NavContext);
-  const { isLoggedIn } = useContext(LoginContext);
 
   return (
     <View>
@@ -21,7 +19,6 @@ const Home = () => {
       ) : nav === "timeline" ? (
         <Timeline />
       ) : null}
-      <Navbar />
     </View>
   );
 };

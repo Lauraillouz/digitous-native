@@ -1,24 +1,26 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState, createContext } from "react";
+import { StyleSheet } from "react-native";
 // Component
 import Posts from "../components/Posts";
 import Comments from "../components/Comments";
 
+export const CommentsContext = createContext();
+
 const Timeline = () => {
+  const [showComments, setShowComments] = useState(false);
+
   return (
-    <View>
-      <Text style={styles.title}>Your Timeline</Text>
-      <Posts />
-      <Comments />
-    </View>
+    <CommentsContext.Provider value={{ showComments, setShowComments }}>
+      {showComments ? <Comments /> : <Posts />}
+    </CommentsContext.Provider>
   );
 };
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: 40,
+    marginTop: 20,
     textAlign: "center",
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     color: "white",
   },

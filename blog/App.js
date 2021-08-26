@@ -4,6 +4,7 @@ import { NativeRouter, Route } from "react-router-native";
 // Components
 import Login from "./src/views/Login";
 import Home from "./src/components/Home";
+import Navbar from "./src/components/Navbar";
 
 // Contexts
 export const LoginContext = createContext();
@@ -29,9 +30,6 @@ const App = () => {
   useEffect(() => {
     getUsers();
   }, []);
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
 
   return (
     <View style={styles.container}>
@@ -43,6 +41,7 @@ const App = () => {
                 <Route exact path="/" component={Login} />
                 <Route exact path="/home" component={Home} />
               </NativeRouter>
+              {isLoggedIn ? <Navbar /> : null}
             </UserContext.Provider>
           </LoginContext.Provider>
         </NavContext.Provider>
