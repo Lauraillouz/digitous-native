@@ -2,12 +2,14 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 // Component
 import Posts from "../components/Posts";
+import Comments from "../components/Comments";
 
-const Home = () => {
+const Timeline = () => {
   return (
     <View>
       <Text style={styles.title}>Your Timeline</Text>
       <Posts />
+      <Comments />
     </View>
   );
 };
@@ -22,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Timeline;

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import { useHistory } from "react-router-native";
 // Components
 import Button from "./Button";
 // Context
@@ -12,7 +11,7 @@ const Navbar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.display}>
-        <Button onPress={() => navState.setNav("home")}>Home</Button>
+        <Button onPress={() => navState.setNav("timeline")}>Home</Button>
         <Button onPress={() => navState.setNav("post")}>New Post</Button>
         <Button onPress={() => navState.setNav("profile")}>Profile</Button>
       </View>
