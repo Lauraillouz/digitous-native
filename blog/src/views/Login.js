@@ -9,12 +9,11 @@ import {
 } from "react-native";
 import { useHistory } from "react-router-native";
 // Context
-import { LoginContext } from "../../App";
-import { NavContext } from "../../App";
+import { LoginContext, UserContext } from "../../App";
 
 const Login = () => {
   const logState = useContext(LoginContext);
-  const navState = useContext(NavContext);
+  const { ID, setID } = useContext(UserContext);
 
   const [isIDValid, setIsIDValid] = useState(false);
 
@@ -22,12 +21,12 @@ const Login = () => {
 
   const checkID = (val) => {
     let value = parseInt(val);
-    console.log(typeof value);
     if (value >= 1 && value <= 10) {
       setIsIDValid(true);
     } else {
       setIsIDValid(false);
     }
+    setID(value.toString());
   };
 
   const handlePress = () => {
