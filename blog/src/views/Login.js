@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   btn: {
     padding: 12,
     backgroundColor: "white",
-    borderRadius: 15,
+    borderRadius: 20,
     marginRight: 100,
     marginLeft: 100,
   },
