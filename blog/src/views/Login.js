@@ -10,9 +10,11 @@ import {
 import { useHistory } from "react-router-native";
 // Context
 import { LoginContext } from "../../App";
+import { NavContext } from "../../App";
 
 const Login = () => {
   const logState = useContext(LoginContext);
+  const navState = useContext(NavContext);
 
   const [isIDValid, setIsIDValid] = useState(false);
 
@@ -27,7 +29,7 @@ const Login = () => {
   };
 
   const handlePress = () => {
-    if (isIDValid) {
+    if (isIDValid && navState.nav === "home") {
       history.push("/home");
       logState.setIsLoggedIn(true);
     } else {

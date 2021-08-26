@@ -1,37 +1,20 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View } from "react-native";
 import { useHistory } from "react-router-native";
 // Components
-import AddPost from "../views/AddPost";
-import Profile from "../views/Profile";
 import Button from "./Button";
+// Context
+import { NavContext } from "../../App";
 
 const Navbar = () => {
-  const history = useHistory();
-
-  const handlePress = () => {
-    switch (children) {
-      case "Home":
-        history.push("/home");
-        console.log("clicked Home");
-        break;
-      case "New Post":
-        console.log("clicked Add post");
-        return <AddPost />;
-      case "Profile":
-        console.log("clicked Profile");
-        return <Profile />;
-      default:
-        return;
-    }
-  };
+  const navState = useContext(NavContext);
 
   return (
     <View style={styles.container}>
       <View style={styles.display}>
-        <Button onPress={handlePress}>Home</Button>
-        <Button onPress={handlePress}>New Post</Button>
-        <Button onPress={handlePress}>Profile</Button>
+        <Button onPress={() => navState.setNav("home")}>Home</Button>
+        <Button onPress={() => navState.setNav("post")}>New Post</Button>
+        <Button onPress={() => navState.setNav("profile")}>Profile</Button>
       </View>
     </View>
   );
@@ -47,7 +30,6 @@ const styles = StyleSheet.create({
     left: 0,
     backgroundColor: "lightblue",
     height: 100,
-    borderRadius: 32,
   },
   display: {
     justifyContent: "center",

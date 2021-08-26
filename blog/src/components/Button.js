@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const Button = ({ children }) => {
+const Button = ({ children, onPress }) => {
   return (
-    <TouchableOpacity style={styles.btn}>
+    <TouchableOpacity style={styles.btn} onPress={onPress}>
       <Text style={styles.btnText}>{children}</Text>
     </TouchableOpacity>
   );
