@@ -8,22 +8,19 @@ import {
   Touchable,
 } from "react-native";
 // Context
-import { UserContext, PostContext } from "../../App";
-import { CommentsContext } from "../views/Timeline";
+import { UserContext } from "../../App";
+import { PostIdContext } from "../views/Timeline";
 
 const Comments = () => {
-  const { ID, setID } = useContext(UserContext);
-  const { posts, setPosts } = useContext(PostContext);
-  const { showComments, setShowComments } = useContext(CommentsContext);
+  const { ID } = useContext(UserContext);
+  const { postId } = useContext(PostIdContext);
 
   const [comments, setComments] = useState([]);
-  /*   console.log("post id is", posts.id); */
 
   const getComments = () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts${ID}/comments`)
+    fetch(`https://jsonplaceholder.typicode.com/posts${postId}/comments`)
       .then((res) => res.json())
       .then((res) => {
-        /* console.log(res); */
         setComments(res);
       });
   };
@@ -34,57 +31,36 @@ const Comments = () => {
 
   /*   const renderComments = ({ item }) => {
     return (
-      <View>
-        <TouchableOpacity style={styles.btnReturn}>
-          <Text style={styles.btnText}>Back to Posts</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }; */
-
-  const handlePress = () => {
-    setShowComments(false);
-  };
-
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.btnReturn} onPress={handlePress}>
-        <Text style={styles.btnText}>Back to Posts</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "lightblue",
-    padding: 24,
-    margin: 32,
-  },
-  label: {
-    fontWeight: "bold",
-  },
-  btnReturn: {
-    backgroundColor: "#1D1D1D",
-    borderRadius: 15,
-    padding: 12,
-  },
-  btnText: {
-    color: "white",
-  },
-});
-
-export default Comments;
-{
-  /* <View style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.label}>Name: </Text>
         <Text>{item.name}</Text>
         <Text style={styles.label}>Email: </Text>
         <Text>{item.email}</Text>
         <Text style={styles.label}>Comment: </Text>
         <Text>{item.body}</Text>
-      </View> */
-}
+      </View>
+    );
+  }; */
+
+  return (
+    <View>
+      <Text>Comments</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    margin: 32,
+  },
+  label: {
+    fontWeight: "bold",
+  },
+});
+
+export default Comments;
 
 {
   /* <FlatList

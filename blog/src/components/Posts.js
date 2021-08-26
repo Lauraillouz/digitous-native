@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,12 +8,13 @@ import {
 } from "react-native";
 // Context
 import { UserContext, PostContext } from "../../App";
-import { CommentsContext } from "../views/Timeline";
+import { CommentsContext, PostIdContext } from "../views/Timeline";
 
 const Posts = () => {
   const { posts, setPosts } = useContext(PostContext);
   const { ID } = useContext(UserContext);
-  const { showComments, setShowComments } = useContext(CommentsContext);
+  const { setShowComments } = useContext(CommentsContext);
+  const { setPostId } = useContext(PostIdContext);
 
   const getPosts = () => {
     fetch(`https://jsonplaceholder.typicode.com/posts`)
@@ -27,18 +28,21 @@ const Posts = () => {
     getPosts();
   }, []);
 
-  const handlePress = () => {
+  const handlePress = (itemId) => {
     setShowComments(true);
+    setPostId(itemId);
   };
 
   const renderPosts = ({ item }) => {
     if (item.userId === parseInt(ID)) {
       return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>Your Timeline</Text>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.post}>{item.body}</Text>
-          <TouchableOpacity onPress={handlePress} style={styles.btnComments}>
+          <TouchableOpacity
+            onPress={() => handlePress(item.id)}
+            style={styles.btnComments}
+          >
             <Text style={styles.text}>Comments</Text>
           </TouchableOpacity>
         </View>
@@ -61,13 +65,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 24,
     borderRadius: 20,
-  },
-  welcome: {
-    marginTop: 40,
-    textAlign: "center",
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
   },
   title: {
     color: "blue",
