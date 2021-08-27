@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 // Context
 import { UserContext, PostContext } from "../../App";
@@ -6,22 +6,22 @@ import { UserContext, PostContext } from "../../App";
 const Profile = () => {
   const { ID, userInfo } = useContext(UserContext);
   const { posts } = useContext(PostContext);
+  const [numberOfPosts, setNumberOfPosts] = useState(0);
 
-  const numberOfPosts = () => {
+  useEffect(() => {
     if (parseInt(ID) === userInfo.id) {
-      let numberOfPosts = posts.length;
-      return numberOfPosts;
+      setNumberOfPosts(posts.length);
     }
-  };
+  }, []);
 
   const renderUser = ({ item }) => {
     if (parseInt(ID) === item.id) {
       return (
         <View style={styles.container}>
-          <Text>Name: {item.name}</Text>
-          <Text>Username: {item.username}</Text>
-          <Text>Email: {item.email}</Text>
-          <Text>You posted {numberOfPosts} articles</Text>
+          <Text style={styles.text}>Name: {item.name}</Text>
+          <Text style={styles.text}>Username: {item.username}</Text>
+          <Text style={styles.text}>Email: {item.email}</Text>
+          <Text style={styles.text}>You posted {numberOfPosts} articles</Text>
         </View>
       );
     }
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     borderRadius: 20,
+    width: 300,
   },
   headline: {
     textAlign: "center",
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     marginTop: 48,
+  },
+  text: {
+    margin: 6,
   },
 });
 

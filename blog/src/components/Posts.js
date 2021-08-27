@@ -41,7 +41,7 @@ const Posts = () => {
         <View>
           <View style={styles.container}>
             <Text style={styles.title}>{item.title}</Text>
-            <Text>{item.body}</Text>
+            <Text style={styles.body}>{item.body}</Text>
             <TouchableOpacity
               onPress={() => handlePress(item.id)}
               style={styles.btnComments}
@@ -60,7 +60,7 @@ const Posts = () => {
         <View style={styles.postsContainer}>
           <Text style={styles.lastPost}>Your new post!</Text>
           <Text style={styles.title}>{newPostTitle}</Text>
-          <Text>{newPostBody}</Text>
+          <Text style={styles.body}>{newPostBody}</Text>
         </View>
       ) : null}
       <FlatList
@@ -85,12 +85,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   title: {
-    color: "blue",
+    color: "#AD1F59",
     fontWeight: "bold",
     marginBottom: 12,
+    fontSize: 18,
   },
   btnComments: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#E1F5AF",
     borderRadius: 15,
     padding: 12,
     marginTop: 12,
@@ -109,6 +110,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     fontStyle: "italic",
     color: "grey",
+  },
+  body: {
+    textAlign: "justify",
   },
 });
 

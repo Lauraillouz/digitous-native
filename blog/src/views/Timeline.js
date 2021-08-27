@@ -31,10 +31,13 @@ const Timeline = () => {
       >
         {showComments ? (
           <View style={styles.container}>
-            <Text style={styles.headline}>Comments</Text>
-            <TouchableOpacity style={styles.btnReturn} onPress={handlePress}>
-              <Text style={styles.btnText}>Back to Posts</Text>
-            </TouchableOpacity>
+            <View style={styles.backgroundTransparent}>
+              <Text style={styles.headlineComments}>Comments</Text>
+              <TouchableOpacity style={styles.btnReturn} onPress={handlePress}>
+                <Text style={styles.btnText}>Back to Posts</Text>
+              </TouchableOpacity>
+            </View>
+
             <View style={styles.commentsContainer}>
               <Comments />
             </View>
@@ -55,7 +58,15 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 400,
   },
+
   headline: {
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+    marginTop: 132,
+  },
+  headlineComments: {
     textAlign: "center",
     fontSize: 24,
     fontWeight: "bold",
@@ -71,7 +82,7 @@ const styles = StyleSheet.create({
   },
   btnReturn: {
     alignSelf: "flex-start",
-    backgroundColor: "lightblue",
+    backgroundColor: "#AD1F59",
     borderRadius: 15,
     padding: 12,
     marginTop: 100,
@@ -80,7 +91,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   btnText: {
-    color: "#1D1D1D",
+    color: "white",
   },
   commentsContainer: {
     marginTop: 64,

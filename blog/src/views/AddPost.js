@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 12,
     borderRadius: 20,
-    borderColor: "lightblue",
+    borderColor: "#EE769F",
     color: "white",
     height: 200,
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 12,
     borderRadius: 15,
-    borderColor: "lightblue",
+    borderColor: "#EE769F",
     color: "white",
   },
   headline: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   btn: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#E1F5AF",
     borderRadius: 15,
     padding: 12,
   },

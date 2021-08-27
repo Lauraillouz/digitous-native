@@ -5,7 +5,7 @@ import { PostIdContext, CommentsContext } from "../views/Timeline";
 
 const Comments = () => {
   const { postId } = useContext(PostIdContext);
-  const { numberOfComments, setNumberOfComments } = useContext(CommentsContext);
+  const { setNumberOfComments } = useContext(CommentsContext);
 
   const [comments, setComments] = useState([]);
 
@@ -20,7 +20,6 @@ const Comments = () => {
   useEffect(() => {
     getComments();
   }, []);
-  console.log("postid is", postId);
 
   useEffect(() => {
     setNumberOfComments(comments.length);
@@ -51,12 +50,12 @@ const Comments = () => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    marginBottom: 200,
+    marginBottom: 176,
   },
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "lightblue",
+    backgroundColor: "#E1F5AF",
     marginTop: 50,
     marginLeft: 32,
     marginRight: 32,
@@ -64,9 +63,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: "bold",
+    textAlign: "right",
   },
   text: {
     marginBottom: 12,
+    textAlign: "right",
   },
 });
 

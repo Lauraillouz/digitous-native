@@ -13,7 +13,7 @@ import { LoginContext, UserContext } from "../../App";
 
 const Login = () => {
   const logState = useContext(LoginContext);
-  const { ID, setID } = useContext(UserContext);
+  const { setID } = useContext(UserContext);
 
   const [isIDValid, setIsIDValid] = useState(false);
 
