@@ -9,6 +9,7 @@ import {
 // Context
 import { UserContext, PostContext } from "../../App";
 import { CommentsContext, PostIdContext } from "../views/Timeline";
+import { NewPostContext } from "../components/Home";
 
 const Posts = () => {
   const { posts, setPosts } = useContext(PostContext);
@@ -16,6 +17,7 @@ const Posts = () => {
   const { comments, setShowComments, numberOfComments } =
     useContext(CommentsContext);
   const { setPostId } = useContext(PostIdContext);
+  const { newPostTitle, newPostBody } = useContext(NewPostContext);
 
   const getPosts = () => {
     fetch(`https://jsonplaceholder.typicode.com/posts`)
@@ -38,26 +40,37 @@ const Posts = () => {
   const renderPosts = ({ item }) => {
     if (item.userId === parseInt(ID)) {
       return (
-        <View style={styles.container}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text>{item.body}</Text>
-          <TouchableOpacity
-            onPress={() => handlePress(item.id)}
-            style={styles.btnComments}
-          >
-            <Text style={styles.text}>Comments ({numberOfComments})</Text>
-          </TouchableOpacity>
+        <View>
+          <View style={styles.container}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text>{item.body}</Text>
+            <TouchableOpacity
+              onPress={() => handlePress(item.id)}
+              style={styles.btnComments}
+            >
+              <Text style={styles.text}>Comments ({numberOfComments})</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       );
     }
   };
 
   return (
-    <FlatList
-      data={posts}
-      renderItem={renderPosts}
-      keyExtractor={(item, index) => index.toString()}
-    />
+    <View>
+      {newPostTitle && newPostBody ? (
+        <View style={styles.postsContainer}>
+          <Text style={styles.lastPost}>Your new post!</Text>
+          <Text style={styles.title}>{newPostTitle}</Text>
+          <Text>{newPostBody}</Text>
+        </View>
+      ) : null}
+      <FlatList
+        data={posts}
+        renderItem={renderPosts}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
   );
 };
 
@@ -82,6 +95,18 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
+  },
+  postsContainer: {
+    margin: 32,
+    backgroundColor: "white",
+    padding: 24,
+    borderRadius: 20,
+  },
+  lastPost: {
+    fontSize: 12,
+    marginBottom: 12,
+    fontStyle: "italic",
+    color: "grey",
   },
 });
 

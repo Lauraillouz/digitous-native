@@ -6,10 +6,8 @@ import Comments from "../components/Comments";
 // Context
 export const CommentsContext = createContext();
 export const PostIdContext = createContext();
-import { NewPostContext } from "../components/Home";
 
 const Timeline = () => {
-  const { newPostTitle, newPostBody } = useContext(NewPostContext);
   const [showComments, setShowComments] = useState(false);
   const [postId, setPostId] = useState("");
   const [numberOfComments, setNumberOfComments] = useState(0);
@@ -17,8 +15,6 @@ const Timeline = () => {
   const handlePress = () => {
     setShowComments(false);
   };
-
-  console.log(newPostTitle, newPostBody);
 
   return (
     <PostIdContext.Provider value={{ postId, setPostId }}>
@@ -43,13 +39,6 @@ const Timeline = () => {
         ) : (
           <View>
             <Text style={styles.headline}>Your Timeline</Text>
-            {newPostTitle && newPostBody ? (
-              <View style={styles.postsContainer}>
-                <Text style={styles.titlePost}>{newPostTitle}</Text>
-                <Text>{newPostBody}</Text>
-              </View>
-            ) : null}
-
             <Posts />
           </View>
         )}
@@ -92,17 +81,6 @@ const styles = StyleSheet.create({
   },
   commentsContainer: {
     marginTop: 64,
-  },
-  postsContainer: {
-    margin: 32,
-    backgroundColor: "white",
-    padding: 24,
-    borderRadius: 20,
-  },
-  titlePost: {
-    color: "blue",
-    fontWeight: "bold",
-    marginBottom: 12,
   },
 });
 
