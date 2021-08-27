@@ -5,7 +5,7 @@ import { PostIdContext, CommentsContext } from "../views/Timeline";
 
 const Comments = () => {
   const { postId } = useContext(PostIdContext);
-  const { setNumberOfComments } = useContext(CommentsContext);
+  const { numberOfComments, setNumberOfComments } = useContext(CommentsContext);
 
   const [comments, setComments] = useState([]);
 
@@ -13,15 +13,17 @@ const Comments = () => {
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setComments(res);
       });
   };
 
   useEffect(() => {
     getComments();
-    setNumberOfComments(comments.length);
   }, []);
+
+  useEffect(() => {
+    setNumberOfComments(comments.length);
+  }, [comments]);
 
   const renderComments = ({ item }) => {
     return (
@@ -41,11 +43,15 @@ const Comments = () => {
       data={comments}
       renderItem={renderComments}
       ketExtractor={(item, index) => index.toString()}
+      style={styles.listContainer}
     />
   );
 };
 
 const styles = StyleSheet.create({
+  listContainer: {
+    marginBottom: 200,
+  },
   container: {
     flex: 1,
     padding: 24,

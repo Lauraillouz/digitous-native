@@ -14,13 +14,12 @@ import { NewPostContext } from "../components/Home";
 const Posts = () => {
   const { posts, setPosts } = useContext(PostContext);
   const { ID } = useContext(UserContext);
-  const { comments, setShowComments, numberOfComments } =
-    useContext(CommentsContext);
-  const { setPostId } = useContext(PostIdContext);
+  const { setShowComments, numberOfComments } = useContext(CommentsContext);
+  const { postId, setPostId } = useContext(PostIdContext);
   const { newPostTitle, newPostBody } = useContext(NewPostContext);
 
   const getPosts = () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts`)
+    fetch(`https://jsonplaceholder.typicode.com/users/${ID}/posts`)
       .then((res) => res.json())
       .then((res) => {
         setPosts(res);
@@ -33,12 +32,11 @@ const Posts = () => {
 
   const handlePress = (itemId) => {
     setShowComments(true);
-    setPostId(itemId);
+    setPostId([...postId, itemId]);
   };
-  console.log(comments);
 
   const renderPosts = ({ item }) => {
-    if (item.userId === parseInt(ID)) {
+    if (item.userId === ID) {
       return (
         <View>
           <View style={styles.container}>
@@ -69,12 +67,16 @@ const Posts = () => {
         data={posts}
         renderItem={renderPosts}
         keyExtractor={(item, index) => index.toString()}
+        style={styles.listContainer}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  listContainer: {
+    marginBottom: 200,
+  },
   container: {
     flex: 1,
     margin: 32,

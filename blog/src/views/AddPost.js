@@ -41,7 +41,7 @@ const AddPost = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add a new post</Text>
+      <Text style={styles.headline}>Add a new post</Text>
       <Text style={styles.label}>Title:</Text>
       <TextInput style={styles.inputTitle} onChangeText={handleChangeTitle} />
       <Text style={styles.label}>Your post:</Text>
@@ -60,7 +60,7 @@ const AddPost = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.8,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -86,10 +86,9 @@ const styles = StyleSheet.create({
     borderColor: "lightblue",
     color: "white",
   },
-  title: {
-    marginTop: 20,
+  headline: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
     color: "white",
     marginBottom: 100,

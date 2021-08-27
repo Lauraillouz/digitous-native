@@ -26,7 +26,8 @@ const Login = () => {
     } else {
       setIsIDValid(false);
     }
-    setID(value.toString());
+    setID(value);
+    console.log(value);
   };
 
   const handlePress = () => {
