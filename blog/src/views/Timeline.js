@@ -6,14 +6,11 @@ import Comments from "../components/Comments";
 // Context
 export const CommentsContext = createContext();
 export const PostIdContext = createContext();
-export const NewPostContext = createContext();
 
 const Timeline = () => {
   const [showComments, setShowComments] = useState(false);
   const [postId, setPostId] = useState("");
   const [numberOfComments, setNumberOfComments] = useState(0);
-  const [newPostTitle, setNewPostTitle] = useState("");
-  const [newPostBody, setNewPostBody] = useState("");
 
   const handlePress = () => {
     setShowComments(false);
@@ -29,26 +26,22 @@ const Timeline = () => {
           setNumberOfComments,
         }}
       >
-        <NewPostContext.Provider
-          value={{ newPostTitle, setNewPostTitle, newPostBody, setNewPostBody }}
-        >
-          {showComments ? (
-            <View style={styles.container}>
-              <Text style={styles.headline}>Comments</Text>
-              <TouchableOpacity style={styles.btnReturn} onPress={handlePress}>
-                <Text style={styles.btnText}>Back to Posts</Text>
-              </TouchableOpacity>
-              <View style={styles.commentsContainer}>
-                <Comments />
-              </View>
+        {showComments ? (
+          <View style={styles.container}>
+            <Text style={styles.headline}>Comments</Text>
+            <TouchableOpacity style={styles.btnReturn} onPress={handlePress}>
+              <Text style={styles.btnText}>Back to Posts</Text>
+            </TouchableOpacity>
+            <View style={styles.commentsContainer}>
+              <Comments />
             </View>
-          ) : (
-            <View>
-              <Text style={styles.headline}>Your Timeline</Text>
-              <Posts />
-            </View>
-          )}
-        </NewPostContext.Provider>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.headline}>Your Timeline</Text>
+            <Posts />
+          </View>
+        )}
       </CommentsContext.Provider>
     </PostIdContext.Provider>
   );
