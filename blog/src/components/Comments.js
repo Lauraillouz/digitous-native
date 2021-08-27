@@ -20,6 +20,7 @@ const Comments = () => {
   useEffect(() => {
     getComments();
   }, []);
+  console.log("postid is", postId);
 
   useEffect(() => {
     setNumberOfComments(comments.length);

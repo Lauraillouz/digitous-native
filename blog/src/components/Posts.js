@@ -15,7 +15,7 @@ const Posts = () => {
   const { posts, setPosts } = useContext(PostContext);
   const { ID } = useContext(UserContext);
   const { setShowComments, numberOfComments } = useContext(CommentsContext);
-  const { postId, setPostId } = useContext(PostIdContext);
+  const { setPostId } = useContext(PostIdContext);
   const { newPostTitle, newPostBody } = useContext(NewPostContext);
 
   const getPosts = () => {
@@ -32,7 +32,7 @@ const Posts = () => {
 
   const handlePress = (itemId) => {
     setShowComments(true);
-    setPostId([...postId, itemId]);
+    setPostId(itemId);
   };
 
   const renderPosts = ({ item }) => {

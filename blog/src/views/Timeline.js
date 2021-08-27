@@ -9,8 +9,9 @@ export const PostIdContext = createContext();
 
 const Timeline = () => {
   const [showComments, setShowComments] = useState(false);
-  const [postId, setPostId] = useState([]);
+  const [postId, setPostId] = useState();
   const [numberOfComments, setNumberOfComments] = useState(0);
+  const [comments, setComments] = useState([]);
 
   const handlePress = () => {
     setShowComments(false);
@@ -24,6 +25,8 @@ const Timeline = () => {
           setShowComments,
           numberOfComments,
           setNumberOfComments,
+          comments,
+          setComments,
         }}
       >
         {showComments ? (
