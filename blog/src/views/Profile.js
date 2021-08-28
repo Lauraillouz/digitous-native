@@ -9,12 +9,13 @@ const Profile = () => {
   const [numberOfPosts, setNumberOfPosts] = useState(0);
 
   useEffect(() => {
-    if (parseInt(ID) === userInfo.id) {
-      setNumberOfPosts(posts.length);
-    }
+    console.log(userInfo);
   }, []);
 
   const renderUser = ({ item }) => {
+    if (parseInt(ID) === item.id) {
+      setNumberOfPosts(posts.length);
+    }
     if (parseInt(ID) === item.id) {
       return (
         <View style={styles.container}>
@@ -42,7 +43,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    marginTop: 100,
+    marginTop: 200,
     flex: 1,
     padding: 24,
     borderRadius: 20,
