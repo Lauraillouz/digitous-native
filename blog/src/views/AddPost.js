@@ -49,6 +49,7 @@ const AddPost = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         posts.unshift(res);
       });
   };

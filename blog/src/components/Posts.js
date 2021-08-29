@@ -16,7 +16,8 @@ const Posts = () => {
   const { ID } = useContext(UserContext);
   const { setShowComments, numberOfComments } = useContext(CommentsContext);
   const { setPostId } = useContext(PostIdContext);
-  const { newPostAdded, setNewPostAdded } = useContext(NewPostContext);
+  const { newPostAdded, setNewPostAdded, newPostTitle, newPostBody } =
+    useContext(NewPostContext);
 
   const getPosts = () => {
     fetch(`https://jsonplaceholder.typicode.com/users/${ID}/posts`)
@@ -31,10 +32,13 @@ const Posts = () => {
     getPosts();
   }, []);
 
+  const newPost = newPostAdded === true;
+
   useEffect(() => {
     console.log("posts in Posts", newPostAdded);
+    console.log("last post in Posts", posts[0]);
     getPosts();
-  }, [newPostAdded]);
+  }, [newPost]);
 
   const handlePress = (itemId) => {
     setShowComments(true);
@@ -44,31 +48,29 @@ const Posts = () => {
   const renderPosts = ({ item }) => {
     if (item.userId === ID) {
       return (
-        <View>
-          <View style={styles.container}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.body}>{item.body}</Text>
-            <TouchableOpacity
-              onPress={() => handlePress(item.id)}
-              style={styles.btnComments}
-            >
-              <Text style={styles.text}>Comments ({numberOfComments})</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.body}>{item.body}</Text>
+          <TouchableOpacity
+            onPress={() => handlePress(item.id)}
+            style={styles.btnComments}
+          >
+            <Text style={styles.text}>Comments ({numberOfComments})</Text>
+          </TouchableOpacity>
         </View>
       );
     }
   };
 
   return (
-    <View>
-      {/* {newPostTitle && newPostBody ? (
+    <View style={styles.listContainer}>
+      {newPostTitle && newPostBody ? (
         <View style={styles.postsContainer}>
           <Text style={styles.lastPost}>Your new post!</Text>
           <Text style={styles.title}>{newPostTitle}</Text>
           <Text style={styles.body}>{newPostBody}</Text>
         </View>
-      ) : null} */}
+      ) : null}
       <FlatList
         data={posts}
         renderItem={renderPosts}
@@ -81,7 +83,7 @@ const Posts = () => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    marginBottom: 200,
+    marginBottom: 160,
   },
   container: {
     flex: 1,
@@ -106,7 +108,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   postsContainer: {
-    margin: 32,
+    marginTop: 32,
+    marginLeft: 32,
+    marginRight: 32,
     backgroundColor: "white",
     padding: 24,
     borderRadius: 20,
