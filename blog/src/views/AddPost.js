@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -9,12 +9,20 @@ import {
 } from "react-native";
 // Context
 import { NewPostContext } from "../components/Home";
-import { NavContext } from "../../App";
+import { NavContext, UserContext, PostContext } from "../../App";
 
 const AddPost = () => {
-  const { newPostTitle, setNewPostTitle, newPostBody, setNewPostBody } =
-    useContext(NewPostContext);
+  const { posts } = useContext(PostContext);
+  const {
+    newPostTitle,
+    setNewPostTitle,
+    newPostBody,
+    setNewPostBody,
+    setNewPostAdded,
+    newPostAdded,
+  } = useContext(NewPostContext);
   const { nav, setNav } = useContext(NavContext);
+  const { ID } = useContext(UserContext);
 
   const handleChangeTitle = (val) => {
     setNewPostTitle(val);
@@ -24,10 +32,33 @@ const AddPost = () => {
     setNewPostBody(val);
   };
 
+  useEffect(() => {
+    setNewPostAdded(false);
+  }, []);
+
+  const addPost = () => {
+    fetch(`https://jsonplaceholder.typicode.com/users/${ID}/posts`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: newPostTitle,
+        body: newPostBody,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        posts.unshift(res);
+      });
+  };
+
   const handlePress = () => {
     if (newPostTitle.length >= 5 && newPostBody.length > 10) {
+      addPost();
+      setNewPostAdded(true);
       setNav("timeline");
-      console.log(nav);
+      console.log("posts in AddPost", newPostAdded);
     } else if (newPostTitle.length < 5) {
       Alert.alert(
         "The title of your post needs to contain at least 5 characters"

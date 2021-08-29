@@ -16,7 +16,7 @@ const Posts = () => {
   const { ID } = useContext(UserContext);
   const { setShowComments, numberOfComments } = useContext(CommentsContext);
   const { setPostId } = useContext(PostIdContext);
-  const { newPostTitle, newPostBody } = useContext(NewPostContext);
+  const { newPostAdded, setNewPostAdded } = useContext(NewPostContext);
 
   const getPosts = () => {
     fetch(`https://jsonplaceholder.typicode.com/users/${ID}/posts`)
@@ -27,8 +27,14 @@ const Posts = () => {
   };
 
   useEffect(() => {
+    console.log("did mount");
     getPosts();
   }, []);
+
+  useEffect(() => {
+    console.log("posts in Posts", newPostAdded);
+    getPosts();
+  }, [newPostAdded]);
 
   const handlePress = (itemId) => {
     setShowComments(true);
@@ -56,13 +62,13 @@ const Posts = () => {
 
   return (
     <View>
-      {newPostTitle && newPostBody ? (
+      {/* {newPostTitle && newPostBody ? (
         <View style={styles.postsContainer}>
           <Text style={styles.lastPost}>Your new post!</Text>
           <Text style={styles.title}>{newPostTitle}</Text>
           <Text style={styles.body}>{newPostBody}</Text>
         </View>
-      ) : null}
+      ) : null} */}
       <FlatList
         data={posts}
         renderItem={renderPosts}

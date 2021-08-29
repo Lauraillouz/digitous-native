@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 // Context
 import { PostIdContext, CommentsContext } from "../views/Timeline";
+import { NewPostContext } from "./Home";
+import { PostContext } from "../../App";
 
 const Comments = () => {
   const { postId } = useContext(PostIdContext);
   const { setNumberOfComments } = useContext(CommentsContext);
-
+  const { newPostAdded } = useContext(NewPostContext);
+  const { posts } = useContext(PostContext);
   const [comments, setComments] = useState([]);
 
   const getComments = () => {
@@ -19,7 +22,7 @@ const Comments = () => {
 
   useEffect(() => {
     getComments();
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     setNumberOfComments(comments.length);

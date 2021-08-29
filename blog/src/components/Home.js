@@ -12,10 +12,18 @@ const Home = () => {
   const { nav } = useContext(NavContext);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostBody, setNewPostBody] = useState("");
+  const [newPostAdded, setNewPostAdded] = useState(false);
 
   return (
     <NewPostContext.Provider
-      value={{ newPostTitle, setNewPostTitle, newPostBody, setNewPostBody }}
+      value={{
+        newPostTitle,
+        setNewPostTitle,
+        newPostBody,
+        setNewPostBody,
+        newPostAdded,
+        setNewPostAdded,
+      }}
     >
       {nav === "post" ? (
         <AddPost />

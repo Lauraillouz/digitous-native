@@ -8,10 +8,6 @@ const Profile = () => {
   const { posts } = useContext(PostContext);
   const [numberOfPosts, setNumberOfPosts] = useState(0);
 
-  useEffect(() => {
-    console.log(userInfo);
-  }, []);
-
   const renderUser = ({ item }) => {
     if (parseInt(ID) === item.id) {
       setNumberOfPosts(posts.length);
@@ -22,7 +18,9 @@ const Profile = () => {
           <Text style={styles.text}>Name: {item.name}</Text>
           <Text style={styles.text}>Username: {item.username}</Text>
           <Text style={styles.text}>Email: {item.email}</Text>
-          <Text style={styles.text}>You posted {numberOfPosts} articles</Text>
+          <Text style={styles.postsNumber}>
+            You posted {numberOfPosts} articles
+          </Text>
         </View>
       );
     }
@@ -58,6 +56,12 @@ const styles = StyleSheet.create({
   },
   text: {
     margin: 6,
+  },
+  postsNumber: {
+    fontWeight: "bold",
+    marginTop: 24,
+    textAlign: "center",
+    color: "#AD1F59",
   },
 });
 
